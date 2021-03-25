@@ -9,39 +9,37 @@ import java.util.Scanner;
 
 public class Program {
 	public static void main(String[] args) {
-		
-		final Integer CANDIDATE_NAME = 0;
-		final Integer CANDIDATE_VOTES = 1;
-		
+
+		final Integer NOME_CANDIDATO = 0;
+		final Integer QUANTIDADE_DE_VOTOS = 1;
+
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.print("Enter the file path: ");
-		String filePath = sc.next();
-		
-		Map<String, Integer> candidates = new HashMap<String, Integer>();
-		
-		try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
-			
+		String caminhoDoArquivo = sc.next();
+
+		Map<String, Integer> candidatos = new HashMap<String, Integer>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(caminhoDoArquivo))) {
+
 			String linhaDeLeitura = br.readLine();
-			while(linhaDeLeitura != null) {
-				
+			while (linhaDeLeitura != null) {
+
 				String[] registroDeVotos = linhaDeLeitura.split(",");
-				if(candidates.containsKey(registroDeVotos[CANDIDATE_NAME])) {
-					candidates.replace(
-							registroDeVotos[0],
-							candidates.get(registroDeVotos[CANDIDATE_NAME]) + Integer.parseInt(registroDeVotos[CANDIDATE_VOTES]));
+				if (candidatos.containsKey(registroDeVotos[NOME_CANDIDATO])) {
+					candidatos.replace(registroDeVotos[NOME_CANDIDATO], candidatos.get(registroDeVotos[NOME_CANDIDATO])
+							+ Integer.parseInt(registroDeVotos[QUANTIDADE_DE_VOTOS]));
 					linhaDeLeitura = br.readLine();
 					continue;
 				}
-				candidates.put(registroDeVotos[CANDIDATE_NAME], Integer.parseInt(registroDeVotos[CANDIDATE_VOTES]));
+				candidatos.put(registroDeVotos[NOME_CANDIDATO], Integer.parseInt(registroDeVotos[QUANTIDADE_DE_VOTOS]));
 				linhaDeLeitura = br.readLine();
 			}
-			String ultimoNome;
-			for(String key: candidates.keySet()) {
-				System.out.println(key + ": " + candidates.get(key));
+			
+			for (String key : candidatos.keySet()) {
+				System.out.println(key + ": " + candidatos.get(key));
 			}
-		}
-		catch (IOException e){
+		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
