@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import entities.Candidate;
-
 public class Program {
 	public static void main(String[] args) {
+		
+		final Integer CANDIDATE_NAME = 0;
+		final Integer CANDIDATE_VOTES = 1;
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -25,12 +26,14 @@ public class Program {
 			while(linhaDeLeitura != null) {
 				
 				String[] registroDeVotos = linhaDeLeitura.split(",");
-				if(candidates.containsKey(registroDeVotos[0])) {
-					candidates.replace(registroDeVotos[0], candidates.get(registroDeVotos[0]) + Integer.parseInt(registroDeVotos[1]));
+				if(candidates.containsKey(registroDeVotos[CANDIDATE_NAME])) {
+					candidates.replace(
+							registroDeVotos[0],
+							candidates.get(registroDeVotos[CANDIDATE_NAME]) + Integer.parseInt(registroDeVotos[CANDIDATE_VOTES]));
 					linhaDeLeitura = br.readLine();
 					continue;
 				}
-				candidates.put(registroDeVotos[0], Integer.parseInt(registroDeVotos[1]));
+				candidates.put(registroDeVotos[CANDIDATE_NAME], Integer.parseInt(registroDeVotos[CANDIDATE_VOTES]));
 				linhaDeLeitura = br.readLine();
 			}
 			String ultimoNome;
